@@ -1,0 +1,110 @@
+[
+  {
+    "keyword": "bitter",
+    "category": "flavor",
+    "size": 46,
+    "avg_sentiment": 0.2887
+  },
+  {
+    "keyword": "sweet",
+    "category": "flavor",
+    "size": 50,
+    "avg_sentiment": 0.7668
+  },
+  {
+    "keyword": "acidity",
+    "category": "flavor",
+    "size": 27,
+    "avg_sentiment": 0.4304
+  },
+  {
+    "keyword": "fruity",
+    "category": "flavor",
+    "size": 10,
+    "avg_sentiment": 0.5869
+  },
+  {
+    "keyword": "nutty",
+    "category": "flavor",
+    "size": 1,
+    "avg_sentiment": 0.1646
+  },
+  {
+    "keyword": "creamy",
+    "category": "flavor",
+    "size": 5,
+    "avg_sentiment": 0.3408
+  },
+  {
+    "keyword": "espresso",
+    "category": "type",
+    "size": 50,
+    "avg_sentiment": 0.4541
+  },
+  {
+    "keyword": "latte",
+    "category": "type",
+    "size": 50,
+    "avg_sentiment": 0.3022
+  },
+  {
+    "keyword": "cold brew",
+    "category": "type",
+    "size": 21,
+    "avg_sentiment": 0.4798
+  },
+  {
+    "keyword": "americano",
+    "category": "type",
+    "size": 37,
+    "avg_sentiment": 0.0983
+  },
+  {
+    "keyword": "french press",
+    "category": "brew",
+    "size": 37,
+    "avg_sentiment": 0.4468
+  },
+  {
+    "keyword": "pour-over",
+    "category": "brew",
+    "size": 12,
+    "avg_sentiment": 0.7144
+  },
+  {
+    "keyword": "moka pot",
+    "category": "brew",
+    "size": 26,
+    "avg_sentiment": 0.2903
+  },
+  {
+    "keyword": "aeropress",
+    "category": "brew",
+    "size": 47,
+    "avg_sentiment": 0.4859
+  },
+  {
+    "keyword": "arabica",
+    "category": "origin",
+    "size": 10,
+    "avg_sentiment": 0.6791
+  },
+  {
+    "keyword": "robusta",
+    "category": "origin",
+    "size": 10,
+    "avg_sentiment": 0.8166
+  },
+  {
+    "keyword": "ethiopia",
+    "category": "origin",
+    "size": 24,
+    "avg_sentiment": 0.5591
+  },
+  {
+    "keyword": "colombia",
+    "category": "origin",
+    "size": 15,
+    "avg_sentiment": 0.6073
+  }
+]

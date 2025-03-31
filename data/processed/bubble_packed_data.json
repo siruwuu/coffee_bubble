@@ -1,0 +1,113 @@
+{
+  "name": "coffee",
+  "children": [
+    {
+      "name": "bitter",
+      "category": "flavor",
+      "value": 46,
+      "avg_sentiment": 0.2887
+    },
+    {
+      "name": "sweet",
+      "category": "flavor",
+      "value": 50,
+      "avg_sentiment": 0.7668
+    },
+    {
+      "name": "acidity",
+      "category": "flavor",
+      "value": 27,
+      "avg_sentiment": 0.4304
+    },
+    {
+      "name": "fruity",
+      "category": "flavor",
+      "value": 10,
+      "avg_sentiment": 0.5869
+    },
+    {
+      "name": "nutty",
+      "category": "flavor",
+      "value": 1,
+      "avg_sentiment": 0.1646
+    },
+    {
+      "name": "creamy",
+      "category": "flavor",
+      "value": 5,
+      "avg_sentiment": 0.3408
+    },
+    {
+      "name": "espresso",
+      "category": "type",
+      "value": 50,
+      "avg_sentiment": 0.4541
+    },
+    {
+      "name": "latte",
+      "category": "type",
+      "value": 50,
+      "avg_sentiment": 0.3022
+    },
+    {
+      "name": "cold brew",
+      "category": "type",
+      "value": 21,
+      "avg_sentiment": 0.4798
+    },
+    {
+      "name": "americano",
+      "category": "type",
+      "value": 37,
+      "avg_sentiment": 0.0983
+    },
+    {
+      "name": "french press",
+      "category": "brew",
+      "value": 37,
+      "avg_sentiment": 0.4468
+    },
+    {
+      "name": "pour-over",
+      "category": "brew",
+      "value": 12,
+      "avg_sentiment": 0.7144
+    },
+    {
+      "name": "moka pot",
+      "category": "brew",
+      "value": 26,
+      "avg_sentiment": 0.2903
+    },
+    {
+      "name": "aeropress",
+      "category": "brew",
+      "value": 47,
+      "avg_sentiment": 0.4859
+    },
+    {
+      "name": "arabica",
+      "category": "origin",
+      "value": 10,
+      "avg_sentiment": 0.6791
+    },
+    {
+      "name": "robusta",
+      "category": "origin",
+      "value": 10,
+      "avg_sentiment": 0.8166
+    },
+    {
+      "name": "ethiopia",
+      "category": "origin",
+      "value": 24,
+      "avg_sentiment": 0.5591
+    },
+    {
+      "name": "colombia",
+      "category": "origin",
+      "value": 15,
+      "avg_sentiment": 0.6073
+    }
+  ]
+}

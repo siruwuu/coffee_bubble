@@ -1,0 +1,17 @@
+---
+title: "Packed Bubble Chart"
+format: html
+---
+
+## ☕ Coffee Keyword Packed Bubble
+
+<script src="https://cdn.jsdelivr.net/npm/roughjs@4.5.1/bundled/rough.js"></script>
+
+<div id="bubble-container"></div>
+
+<!-- ✅ 正确加载 D3 和 JS 模块 -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script type="module">
+  import { drawPackedBubble } from "./coffee_packed_bubble.js";
+  drawPackedBubble("#bubble-container", "./bubble_packed_data.json");
+</script>
