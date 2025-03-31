@@ -27,3 +27,28 @@ resources:
   font-size: 13px;
 }
 </style>
+
+
+## ☕ Coffee Keyword Force Layout
+
+<div id="bubble-container"></div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+<script type="module">
+  import { drawForceBubble } from "./force_layout.js";
+  drawForceBubble("#bubble-container", "bubble_packed_data_grouped.json");
+</script>
+
+<style>
+.tooltip {
+  font-family: sans-serif;
+  position: absolute;
+  background: #f9f9f9;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  pointer-events: none;
+  font-size: 13px;
+}
+</style>

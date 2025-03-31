@@ -1,11 +1,16 @@
-// coffee_packed_bubble.js
 import rough from "https://cdn.jsdelivr.net/npm/roughjs@4.5.1/bundled/rough.esm.js";
 
 export function drawPackedBubble(containerSelector, dataPath) {
   const width = 800;
   const height = 600;
 
-  const color = d3.scaleOrdinal(d3.schemeTableau10); 
+  const morandiPalette = {
+    flavor: ['#F28CA6', '#E6B2BA', '#FFE3E3', '#FF8A8A','#F7B5CA','#EDDFE0'], // pink
+    type:   ['#F39E60', '#FFE6A9',  '#FFD09B', '#FFB38E'],  //orange
+    brew:   ['#C5D3E8', '#BAC5D1', '#CAD6DE','#D4F6FF'], //blue
+    origin: ['#95D2B3', '#CADABF', '#ACE1AF','#BFF6C3']
+  };
+
 
   const svg = d3.select(containerSelector)
     .append("svg")
@@ -26,42 +31,50 @@ export function drawPackedBubble(containerSelector, dataPath) {
 
   d3.json(dataPath).then(data => {
     const pack = d3.pack().size([width, height]).padding(4);
-    const root = d3.hierarchy(data).sum(d => d.value);
+    const root = d3.hierarchy(data)
+      .sum(d => d.value)
+      .sort((a, b) => b.value - a.value);
     pack(root);
+
+    // ✅ 分配颜色
+    const colorMap = {};
+    const counters = {};
+    root.leaves().forEach(d => {
+      const cat = d.data.category;
+      counters[cat] = (counters[cat] || 0);
+      const palette = morandiPalette[cat] || ["#ccc"];
+      colorMap[d.data.name] = palette[counters[cat] % palette.length];
+      counters[cat] += 1;
+    });
 
     const node = svg.selectAll("g")
       .data(root.leaves())
       .join("g")
       .attr("transform", d => `translate(${d.x},${d.y})`);
 
-      const rc = rough.svg(svg.node());
+    const rc = rough.svg(svg.node());
 
-      node.each(function (d) {
-        const roughCircle = rc.circle(0, 0, 2 * d.r, {
-          stroke: "black",
-          fill: color(d.data.category),
-          fillStyle: "cross-hatch",   // ✅ 改为交叉线填充
-          fillWeight: 1.5,            // ✅ 粗一些的线条
-          hachureAngle: 60,           // ✅ 更倾斜的角度
-          hachureGap: 4               // ✅ 更紧密的纹理
-        });
-        d3.select(this).node().appendChild(roughCircle);
+    node.each(function (d) {
+      const roughCircle = rc.circle(0, 0, 2 * d.r, {
+        stroke: "black",
+        fill: colorMap[d.data.name],
+        fillStyle: "cross-hatch",
+        fillWeight: 1.5,
+        hachureAngle: 60,
+        hachureGap: 4
       });
-      
+      d3.select(this).node().appendChild(roughCircle);
+    });
 
     node.append("text")
       .text(d => d.data.name)
       .attr("dy", "0.35em")
       .attr("text-anchor", "middle")
-      .style("font-size", d => Math.max(10, d.r / 3) + "px")  // 自动调整大小
+      .style("font-size", d => Math.max(10, d.r / 3) + "px")
       .style("fill", "black")
       .style("font-family", "Comic Sans MS, sans-serif")
       .style("pointer-events", "none");
-  
-  
 
-
-    // 悬停提示
     node.on("mouseover", (event, d) => {
         tooltip.transition().duration(100).style("opacity", 1);
         tooltip.html(`<strong>${d.data.name}</strong><br/>
