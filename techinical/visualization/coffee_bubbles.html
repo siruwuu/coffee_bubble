@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Packed Bubble Chart</title>
+<title>Coffee Keyword Packed Bubble</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -45,7 +45,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Packed Bubble Chart</h1>
+<h1 class="title">Coffee Keyword Packed Bubble</h1>
 </div>
 
 
@@ -67,12 +67,23 @@ ul.task-list li input[type="checkbox"] {
 <div id="bubble-container">
 
 </div>
-<!-- ✅ 正确加载 D3 和 JS 模块 -->
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script type="module">
   import { drawPackedBubble } from "./coffee_packed_bubble.js";
-  drawPackedBubble("#bubble-container", "./bubble_packed_data.json");
+  drawPackedBubble("#bubble-container", "bubble_packed_data.json");
 </script>
+<style>
+.tooltip {
+  font-family: sans-serif;
+  position: absolute;
+  background: #f9f9f9;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  pointer-events: none;
+  font-size: 13px;
+}
+</style>
 </section>
 
 </main>
