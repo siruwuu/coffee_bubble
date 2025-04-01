@@ -1,12 +1,22 @@
 import json
-from collections import defaultdict
+import os
 import numpy as np
+from collections import defaultdict
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+import nltk
 
-input_path = "data/processed/comments_with_sentiment.json"
-output_path = "data/processed/bubble_with_descriptions.json"
-category_output_dir = "data/processed/"
+# 🔧 如果第一次运行，请确保 VADER 词典存在
+nltk.download("vader_lexicon")
 
-# Introduction Dictionary
+# ======== 📁 路径设置 ========
+INPUT_FILE = "data/raw_data/reddit_coffee_bubbles_full.json"
+OUTPUT_DIR = "data/processed"
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+# ======== 📊 情绪分析器初始化 ========
+sid = SentimentIntensityAnalyzer()
+
+# ======== 📚 简要介绍词典（用于 bubble 描述） ========
 descriptions = {
     "bitter": "Bitter is one of the basic taste sensations often associated with dark roast or over-extraction.",
     "sweet": "Sweetness in coffee is a desirable trait, indicating well-developed sugars during roasting.",
@@ -28,34 +38,55 @@ descriptions = {
     "colombia": "Colombian coffee is known for balanced acidity, nutty tones, and smooth medium body."
 }
 
-with open(input_path, "r", encoding="utf-8") as f:
-    comments = json.load(f)
+# ======== 📥 加载原始数据 ========
+with open(INPUT_FILE, "r", encoding="utf-8") as f:
+    raw_data = json.load(f)
 
-# Combine bubble data and per-category split
+# ======== 🔁 处理每条评论 ========
+comments_with_sentiment = []
 aggregated = defaultdict(lambda: {"category": None, "examples": [], "sentiments": []})
 category_split = defaultdict(list)
 
-for item in comments:
-    keyword = item["keyword"]
-    category = item["category"]
-    sentiment = item.get("sentiment", 0)
-    text = item["text"]
-    title = item.get("title", "")
-    url = item.get("url", "")
+for entry in raw_data:
+    keyword = entry["keyword"]
+    category = entry["category"]
 
-    aggregated[keyword]["category"] = category
-    aggregated[keyword]["examples"].append(text)
-    aggregated[keyword]["sentiments"].append(sentiment)
+    for ex in entry["examples"]:
+        text = ex["text"]
+        sentiment = sid.polarity_scores(text)["compound"]
+        post_title = ex.get("post_title", "")
+        post_url = ex.get("post_url", "")
 
-    category_split[category].append({
-        "keyword": keyword,
-        "text": text,
-        "sentiment": sentiment,
-        "title": title,
-        "url": url
-    })
+        # ✅ 收集完整数据用于单条评论散点图等
+        comments_with_sentiment.append({
+            "keyword": keyword,
+            "category": category,
+            "text": text,
+            "sentiment": sentiment,
+            "title": post_title,
+            "url": post_url
+        })
 
-# Bubble plot structure
+        # ✅ 汇总给 bubble 用
+        agg = aggregated[keyword]
+        agg["category"] = category
+        agg["examples"].append({
+            "text": text,
+            "title": post_title,
+            "url": post_url
+        })
+        agg["sentiments"].append(sentiment)
+
+        # ✅ 按类别分组保存
+        category_split[category].append({
+            "keyword": keyword,
+            "text": text,
+            "sentiment": sentiment,
+            "title": post_title,
+            "url": post_url
+        })
+
+# ======== 📦 输出 bubble 结构文件 ========
 bubble_data = {
     "name": "coffee",
     "children": []
@@ -64,25 +95,26 @@ bubble_data = {
 for keyword, info in aggregated.items():
     value = len(info["examples"])
     avg_sentiment = float(np.mean(info["sentiments"])) if value > 0 else 0
-
     bubble_data["children"].append({
         "name": keyword,
         "category": info["category"],
         "value": value,
         "avg_sentiment": round(avg_sentiment, 3),
-        "examples": info["examples"][:5],
+        "examples": info["examples"][:5],  # 带 title 和 url
         "description": descriptions.get(keyword, "")
     })
 
-# Save bubble file
-with open(output_path, "w", encoding="utf-8") as f:
+with open(os.path.join(OUTPUT_DIR, "bubble_with_descriptions.json"), "w", encoding="utf-8") as f:
     json.dump(bubble_data, f, ensure_ascii=False, indent=2)
 
-print("Bubble data saved to:", output_path)
+# ======== 💾 保存所有评论情绪分数 ========
+with open(os.path.join(OUTPUT_DIR, "comments_with_sentiment.json"), "w", encoding="utf-8") as f:
+    json.dump(comments_with_sentiment, f, ensure_ascii=False, indent=2)
 
-# Save category-specific sentiment data
-for cat, items in category_split.items():
-    out_path = f"{category_output_dir}{cat}_comments.json"
-    with open(out_path, "w", encoding="utf-8") as f:
+# ======== 💾 保存分类评论文件 ========
+for category, items in category_split.items():
+    filename = f"{category}_comments.json"
+    with open(os.path.join(OUTPUT_DIR, filename), "w", encoding="utf-8") as f:
         json.dump(items, f, ensure_ascii=False, indent=2)
-    print(f" Category data saved to: {out_path}")
+
+print(" All data files saved in:", OUTPUT_DIR)

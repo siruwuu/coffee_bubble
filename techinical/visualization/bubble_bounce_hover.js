@@ -90,9 +90,9 @@ export function drawPackedBubbleAnimated(containerSelector, dataPath) {
         .style("font-size", Math.max(10, d.r / 3) + "px")
         .style("font-weight", "normal");
     })
-    .on("click", function (event, d) {
-      const keyword = encodeURIComponent(d.data.name);
-      window.location.href = `details/sentiment_viewer.html?keyword=${keyword}`;
-    });
+      .on("click", function (event, d) {
+        const category = encodeURIComponent(d.data.category);
+        window.location.href = `details/viewer_by_category.html?category=${category}`;
+      });
   }); 
 }

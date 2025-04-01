@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Explore Coffee Categories</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+
+    h2 {
+      margin-bottom: 40px;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .category-btn {
+      padding: 14px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #eee;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .category-btn:hover {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <h2>☕ Explore Coffee Keyword Categories</h2>
+
+  <div class="button-container">
+    <button class="category-btn" onclick="location.href='viewer_by_category.html?category=flavor'">Flavor</button>
+    <button class="category-btn" onclick="location.href='viewer_by_category.html?category=type'">Type</button>
+    <button class="category-btn" onclick="location.href='viewer_by_category.html?category=brew'">Brew Method</button>
+    <button class="category-btn" onclick="location.href='viewer_by_category.html?category=origin'">Origin</button>
+  </div>
+</body>
+</html>

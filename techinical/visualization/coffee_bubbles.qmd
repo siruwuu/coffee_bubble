@@ -6,8 +6,6 @@ resources:
   - details/**
 ---
 
-## ☕ Bubble Version A — Bounce Animation Only
-
 <!-- 🔧 主图表容器 -->
 <div id="bounce-bubble" style="position: relative;"></div>
 
@@ -31,17 +29,4 @@ resources:
 <script type="module">
   import { drawPackedBubbleAnimated } from "./bubble_bounce_hover.js";
   drawPackedBubbleAnimated("#bounce-bubble", "data/bubble_with_descriptions.json");
-</script>
-
-
----
-
-## ☕ Bubble Version B — Hover Detail Info Box
-
-<!-- 第二个版本容器 -->
-<div id="info-bubble" style="position: relative;"></div>
-
-<script type="module">
-  import { drawPackedBubbleWithInfoBox } from "./hover_detail_box.js";
-  drawPackedBubbleWithInfoBox("#info-bubble", "data/bubble_with_descriptions.json");
 </script>

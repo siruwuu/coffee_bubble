@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sentiment Viewer by Category</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    body {
+      font-family: "Comic Sans MS", sans-serif;
+      margin: 40px;
+    }
+
+    .tooltip {
+      position: absolute;
+      display: none;
+    }
+
+    #sentiment-chart {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <h2 id="chart-title">Loading...</h2>
+  <div id="sentiment-chart"></div>
+
+  <script type="module">
+    import { drawSentimentPolarPlot } from "../sentiment_polar_rough.js";
+
+    const params = new URLSearchParams(window.location.search);
+    const category = params.get("category");
+
+    if (category) {
+      document.getElementById("chart-title").textContent = `✨ Comments in Category: ${category}`;
+      drawSentimentPolarPlot("#sentiment-chart", "../data/comments_with_sentiment.json", category);
+    } else {
+      document.getElementById("chart-title").textContent = "Error: Missing category parameter in URL.";
+    }
+  </script>
+</body>
+</html>
