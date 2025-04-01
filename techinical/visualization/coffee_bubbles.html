@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Coffee Keyword Packed Bubble</title>
+<title>Coffee Keyword Packed Bubble Comparison</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -45,7 +45,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Coffee Keyword Packed Bubble</h1>
+<h1 class="title">Coffee Keyword Packed Bubble Comparison</h1>
 </div>
 
 
@@ -62,51 +62,27 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="coffee-keyword-packed-bubble" class="level2">
-<h2 class="anchored" data-anchor-id="coffee-keyword-packed-bubble">☕ Coffee Keyword Packed Bubble</h2>
-<div id="bubble-container">
+<section id="bubble-version-a-bounce-animation-only" class="level2">
+<h2 class="anchored" data-anchor-id="bubble-version-a-bounce-animation-only">☕ Bubble Version A — Bounce Animation Only</h2>
+<div id="bounce-bubble">
 
 </div>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script type="module">
-  import { drawPackedBubble } from "./coffee_packed_bubble.js";
-  drawPackedBubble("#bubble-container", "bubble_packed_data.json");
+  import { drawPackedBubbleAnimated } from "./bubble_bounce_hover.js";
+  drawPackedBubbleAnimated("#bounce-bubble", "bubble_with_descriptions.json");
 </script>
-<style>
-.tooltip {
-  font-family: sans-serif;
-  position: absolute;
-  background: #f9f9f9;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  pointer-events: none;
-  font-size: 13px;
-}
-</style>
+<hr>
 </section>
-<section id="coffee-keyword-force-layout" class="level2">
-<h2 class="anchored" data-anchor-id="coffee-keyword-force-layout">☕ Coffee Keyword Force Layout</h2>
-<div id="bubble-container">
+<section id="bubble-version-b-hover-detail-info-box" class="level2">
+<h2 class="anchored" data-anchor-id="bubble-version-b-hover-detail-info-box">☕ Bubble Version B — Hover Detail Info Box</h2>
+<div id="info-bubble" style="position: relative;">
 
 </div>
-<script src="https://d3js.org/d3.v7.min.js"></script>
 <script type="module">
-  import { drawForceBubble } from "./force_layout.js";
-  drawForceBubble("#bubble-container", "bubble_packed_data_grouped.json");
+  import { drawPackedBubbleWithInfoBox } from "./hover_detail_box.js";
+  drawPackedBubbleWithInfoBox("#info-bubble", "bubble_with_descriptions.json");
 </script>
-<style>
-.tooltip {
-  font-family: sans-serif;
-  position: absolute;
-  background: #f9f9f9;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  pointer-events: none;
-  font-size: 13px;
-}
-</style>
 </section>
 
 </main>

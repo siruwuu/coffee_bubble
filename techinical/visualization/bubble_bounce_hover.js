@@ -1,7 +1,7 @@
-// coffee_packed_bubble.js
+// 方法三：不展示 tooltip，使用动画表达 Hover 效果（呼吸/弹跳）
 import rough from "https://cdn.jsdelivr.net/npm/roughjs@4.5.1/bundled/rough.esm.js";
 
-export function drawPackedBubble(containerSelector, dataPath) {
+export function drawPackedBubbleAnimated(containerSelector, dataPath) {
   const width = 800;
   const height = 600;
 
@@ -16,19 +16,6 @@ export function drawPackedBubble(containerSelector, dataPath) {
     .append("svg")
     .attr("width", width)
     .attr("height", height);
-
-  const tooltip = d3.select("body")
-    .append("div")
-    .attr("class", "tooltip")
-    .style("opacity", 0)
-    .style("position", "absolute")
-    .style("background", "#f9f9f9")
-    .style("padding", "6px 12px")
-    .style("border", "1px solid #ccc")
-    .style("border-radius", "6px")
-    .style("font-size", "13px")
-    .style("pointer-events", "none")
-    .style("max-width", "300px");
 
   d3.json(dataPath).then(data => {
     const pack = d3.pack().size([width, height]).padding(4);
@@ -46,7 +33,6 @@ export function drawPackedBubble(containerSelector, dataPath) {
       colorMap[d.data.name] = palette[counters[cat] % palette.length];
       counters[cat] += 1;
 
-      // 保存初始位置用于回退动画
       d.originalX = d.x;
       d.originalY = d.y;
     });
@@ -80,35 +66,29 @@ export function drawPackedBubble(containerSelector, dataPath) {
       .style("pointer-events", "none");
 
     node.on("mouseover", function (event, d) {
-        // 动画：移到中心
-        d3.select(this)
-          .raise()
-          .transition()
-          .duration(500)
-          .attr("transform", `translate(${width / 2}, ${height / 2}) scale(1.2)`);
+      d3.select(this)
+        .raise()
+        .transition()
+        .duration(300)
+        .attr("transform", `translate(${d.originalX}, ${d.originalY - 10}) scale(1.15)`);
 
-        tooltip.transition().duration(100).style("opacity", 1);
-        tooltip.html(`
-          <div style="max-width: 250px;">
-            <div style="font-weight:bold; color:#c0392b; font-size:16px;">
-              ${d.data.name}
-            </div>
-            <div style="font-size: 13px; color: #333; margin-top: 4px;">
-              ${d.data.examples?.slice(0, 3).map(t => `• ${t}`).join('<br/><br/>') || "No example available."}
-            </div>
-          </div>
-        `)
-        .style("left", event.pageX + 10 + "px")
-        .style("top", event.pageY - 28 + "px");
-      })
-      .on("mouseout", function (event, d) {
-        // 回退动画：回原位置
-        d3.select(this)
-          .transition()
-          .duration(500)
-          .attr("transform", `translate(${d.originalX}, ${d.originalY}) scale(1)`);
+      d3.select(this).select("text")
+        .transition()
+        .duration(300)
+        .style("font-size", d => Math.max(10, d.r / 2.2) + "px")
+        .style("font-weight", "bold");
+    })
+    .on("mouseout", function (event, d) {
+      d3.select(this)
+        .transition()
+        .duration(300)
+        .attr("transform", `translate(${d.originalX}, ${d.originalY}) scale(1)`);
 
-        tooltip.transition().duration(200).style("opacity", 0);
-      });
+      d3.select(this).select("text")
+        .transition()
+        .duration(300)
+        .style("font-size", d => Math.max(10, d.r / 3) + "px")
+        .style("font-weight", "normal");
+    });
   });
 }

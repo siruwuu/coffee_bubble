@@ -1,7 +1,7 @@
-// coffee_packed_bubble.js
+// 方法二：hover 展示固定位置的侧边简介信息
 import rough from "https://cdn.jsdelivr.net/npm/roughjs@4.5.1/bundled/rough.esm.js";
 
-export function drawPackedBubble(containerSelector, dataPath) {
+export function drawPackedBubbleWithInfoBox(containerSelector, dataPath) {
   const width = 800;
   const height = 600;
 
@@ -17,18 +17,22 @@ export function drawPackedBubble(containerSelector, dataPath) {
     .attr("width", width)
     .attr("height", height);
 
-  const tooltip = d3.select("body")
+  const infoBox = d3.select(containerSelector)
     .append("div")
-    .attr("class", "tooltip")
-    .style("opacity", 0)
+    .attr("id", "info-box")
     .style("position", "absolute")
-    .style("background", "#f9f9f9")
-    .style("padding", "6px 12px")
+    .style("top", "20px")
+    .style("left", width + 40 + "px")
+    .style("width", "260px")
+    .style("background", "#fff")
+    .style("padding", "12px")
     .style("border", "1px solid #ccc")
-    .style("border-radius", "6px")
-    .style("font-size", "13px")
-    .style("pointer-events", "none")
-    .style("max-width", "300px");
+    .style("border-radius", "8px")
+    .style("box-shadow", "0 2px 8px rgba(0,0,0,0.1)")
+    .style("font-family", "sans-serif")
+    .style("font-size", "14px")
+    .style("display", "none")
+    .style("pointer-events", "none");
 
   d3.json(dataPath).then(data => {
     const pack = d3.pack().size([width, height]).padding(4);
@@ -46,7 +50,6 @@ export function drawPackedBubble(containerSelector, dataPath) {
       colorMap[d.data.name] = palette[counters[cat] % palette.length];
       counters[cat] += 1;
 
-      // 保存初始位置用于回退动画
       d.originalX = d.x;
       d.originalY = d.y;
     });
@@ -79,36 +82,30 @@ export function drawPackedBubble(containerSelector, dataPath) {
       .style("font-family", "Comic Sans MS, sans-serif")
       .style("pointer-events", "none");
 
-    node.on("mouseover", function (event, d) {
-        // 动画：移到中心
-        d3.select(this)
-          .raise()
-          .transition()
-          .duration(500)
-          .attr("transform", `translate(${width / 2}, ${height / 2}) scale(1.2)`);
+    node.on("mouseenter", function (event, d) {
+      d3.select(this)
+        .raise()
+        .transition()
+        .duration(400)
+        .attr("transform", `translate(${width / 2}, ${height / 2}) scale(1.2)`);
 
-        tooltip.transition().duration(100).style("opacity", 1);
-        tooltip.html(`
-          <div style="max-width: 250px;">
-            <div style="font-weight:bold; color:#c0392b; font-size:16px;">
-              ${d.data.name}
-            </div>
-            <div style="font-size: 13px; color: #333; margin-top: 4px;">
-              ${d.data.examples?.slice(0, 3).map(t => `• ${t}`).join('<br/><br/>') || "No example available."}
-            </div>
-          </div>
-        `)
-        .style("left", event.pageX + 10 + "px")
-        .style("top", event.pageY - 28 + "px");
-      })
-      .on("mouseout", function (event, d) {
-        // 回退动画：回原位置
-        d3.select(this)
-          .transition()
-          .duration(500)
-          .attr("transform", `translate(${d.originalX}, ${d.originalY}) scale(1)`);
+      infoBox.style("display", "block");
+      infoBox.html(`
+        <div style="font-weight:bold; color:#c0392b; font-size:16px; margin-bottom:6px;">
+          ${d.data.name}
+        </div>
+        <div style="color:#444; font-size:13px;">
+          ${d.data.examples?.slice(0, 3).map(t => `• ${t}`).join("<br/><br/>") || "No info available."}
+        </div>
+      `);
+    })
+    .on("mouseleave", function (event, d) {
+      d3.select(this)
+        .transition()
+        .duration(500)
+        .attr("transform", `translate(${d.originalX}, ${d.originalY}) scale(1)`);
 
-        tooltip.transition().duration(200).style("opacity", 0);
-      });
+      infoBox.style("display", "none");
+    });
   });
 }
