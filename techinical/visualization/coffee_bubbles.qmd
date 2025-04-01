@@ -3,25 +3,45 @@ title: "Coffee Keyword Packed Bubble Comparison"
 format: html
 resources:
   - ../../data/processed/bubble_with_descriptions.json
+  - details/**
 ---
 
 ## ☕ Bubble Version A — Bounce Animation Only
 
-<div id="bounce-bubble"></div>
+<!-- 🔧 主图表容器 -->
+<div id="bounce-bubble" style="position: relative;"></div>
+
+<!-- 📝 显示 keyword 简要说明 -->
+<div id="hover-info" style="
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  width: 240px;
+  background: white;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  font-family: sans-serif;
+  font-size: 14px;
+  display: none;
+  z-index: 999;
+"></div>
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script type="module">
   import { drawPackedBubbleAnimated } from "./bubble_bounce_hover.js";
-  drawPackedBubbleAnimated("#bounce-bubble", "bubble_with_descriptions.json");
+  drawPackedBubbleAnimated("#bounce-bubble", "data/bubble_with_descriptions.json");
 </script>
+
 
 ---
 
 ## ☕ Bubble Version B — Hover Detail Info Box
 
+<!-- 第二个版本容器 -->
 <div id="info-bubble" style="position: relative;"></div>
 
 <script type="module">
   import { drawPackedBubbleWithInfoBox } from "./hover_detail_box.js";
-  drawPackedBubbleWithInfoBox("#info-bubble", "bubble_with_descriptions.json");
+  drawPackedBubbleWithInfoBox("#info-bubble", "data/bubble_with_descriptions.json");
 </script>

@@ -4,6 +4,7 @@ import numpy as np
 
 input_path = "data/processed/comments_with_sentiment.json"
 output_path = "data/processed/bubble_with_descriptions.json"
+category_output_dir = "data/processed/"
 
 # Introduction Dictionary
 descriptions = {
@@ -30,20 +31,31 @@ descriptions = {
 with open(input_path, "r", encoding="utf-8") as f:
     comments = json.load(f)
 
-# Combine information
+# Combine bubble data and per-category split
 aggregated = defaultdict(lambda: {"category": None, "examples": [], "sentiments": []})
+category_split = defaultdict(list)
 
 for item in comments:
     keyword = item["keyword"]
     category = item["category"]
-    example = item["text"]
     sentiment = item.get("sentiment", 0)
+    text = item["text"]
+    title = item.get("title", "")
+    url = item.get("url", "")
 
-    agg = aggregated[keyword]
-    agg["category"] = category
-    agg["examples"].append(example)
-    agg["sentiments"].append(sentiment)
+    aggregated[keyword]["category"] = category
+    aggregated[keyword]["examples"].append(text)
+    aggregated[keyword]["sentiments"].append(sentiment)
 
+    category_split[category].append({
+        "keyword": keyword,
+        "text": text,
+        "sentiment": sentiment,
+        "title": title,
+        "url": url
+    })
+
+# Bubble plot structure
 bubble_data = {
     "name": "coffee",
     "children": []
@@ -62,7 +74,15 @@ for keyword, info in aggregated.items():
         "description": descriptions.get(keyword, "")
     })
 
+# Save bubble file
 with open(output_path, "w", encoding="utf-8") as f:
     json.dump(bubble_data, f, ensure_ascii=False, indent=2)
 
-print("Merged bubble data saved to:", output_path)
+print("Bubble data saved to:", output_path)
+
+# Save category-specific sentiment data
+for cat, items in category_split.items():
+    out_path = f"{category_output_dir}{cat}_comments.json"
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump(items, f, ensure_ascii=False, indent=2)
+    print(f" Category data saved to: {out_path}")

@@ -1,4 +1,4 @@
-// 方法三：不展示 tooltip，使用动画表达 Hover 效果（呼吸/弹跳）
+// 方法三：不展示 tooltip，使用动画表达 Hover 效果（呼吸/弹跳） + 点击跳转到评论页面
 import rough from "https://cdn.jsdelivr.net/npm/roughjs@4.5.1/bundled/rough.esm.js";
 
 export function drawPackedBubbleAnimated(containerSelector, dataPath) {
@@ -75,7 +75,7 @@ export function drawPackedBubbleAnimated(containerSelector, dataPath) {
       d3.select(this).select("text")
         .transition()
         .duration(300)
-        .style("font-size", d => Math.max(10, d.r / 2.2) + "px")
+        .style("font-size", Math.max(10, d.r / 2.2) + "px")
         .style("font-weight", "bold");
     })
     .on("mouseout", function (event, d) {
@@ -87,8 +87,12 @@ export function drawPackedBubbleAnimated(containerSelector, dataPath) {
       d3.select(this).select("text")
         .transition()
         .duration(300)
-        .style("font-size", d => Math.max(10, d.r / 3) + "px")
+        .style("font-size", Math.max(10, d.r / 3) + "px")
         .style("font-weight", "normal");
+    })
+    .on("click", function (event, d) {
+      const keyword = encodeURIComponent(d.data.name);
+      window.location.href = `details/sentiment_viewer.html?keyword=${keyword}`;
     });
-  });
+  }); 
 }
