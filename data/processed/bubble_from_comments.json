@@ -5,7 +5,7 @@
       "name": "bitter",
       "category": "flavor",
       "value": 45,
-      "avg_sentiment": 0.235,
+      "avg_sentiment": 0.2347,
       "examples": [
         {
           "text": "After decades of not liking coffee, and thinking all coffee was just bitter or acidic, it's pretty wild once you get on this side of the fence and experience everything else out there this isn't made buy a huge corporate chain place (or pod maker). Before, I couldn't be bothered to do more than put a pod in the Keurig or Nespresso machine and press *brew*. Now I'll happily spend 5 minutes to make a good cup of joe. \n\nWhenever I go back to my parents for a few days I usually bring some back with me and my trusty AeroPress (I've upgraded to the Weber BIRD in the past few months, *huge change in quality*), and make a cup for my mom too. She'd ask what kind of coffee it was (meaning flavors)...then she would load it up with about 2 ounces of non-dairy Hazelnut flavored creamer.",
@@ -32,14 +32,13 @@
           "title": "[MOD] What have you been brewing this week?/ Coffee bean recommendations",
           "url": "https://www.reddit.com/r/Coffee/comments/1jlz6xd/mod_what_have_you_been_brewing_this_week_coffee/"
         }
-      ],
-      "description": "Bitter is one of the basic taste sensations often associated with dark roast or over-extraction."
+      ]
     },
     {
       "name": "sweet",
       "category": "flavor",
       "value": 50,
-      "avg_sentiment": 0.61,
+      "avg_sentiment": 0.6104,
       "examples": [
         {
           "text": "https://www.stumptowncoffee.com/products/trapper-creek-decaf?variant=40006909362344\n\nI've stopped consuming caffeine over a year ago since I didn't like how I was dependent on it, but quickly I learned how much I loved the routine of making and enjoy coffee. My husband was wonderful and found me some Swiss water decaf coffee. This one has been my favorite so far! I typically make it as a latte with some Steamed whole milk for the best flavor.\nIt's a little sweet with Graham cracker flavor and is not bitter. I personally love blonde roasts, but this medium roast stole My heart.",
@@ -66,14 +65,13 @@
           "title": "Which alternative milk taste most like cows milk in coffee/espresso?",
           "url": "https://www.reddit.com/r/Coffee/comments/1jozab0/which_alternative_milk_taste_most_like_cows_milk/"
         }
-      ],
-      "description": "Sweetness in coffee is a desirable trait, indicating well-developed sugars during roasting."
+      ]
     },
     {
       "name": "acidity",
       "category": "flavor",
       "value": 18,
-      "avg_sentiment": 0.6,
+      "avg_sentiment": 0.6004,
       "examples": [
         {
           "text": "Is it sour or is it acidic? It's entirely possible that it's just not to your taste. \n\nMy coffee is described as sour by some folks, mostly (but not always) dark roast drinkers; they aren't used to the level of acidity present. It could be the type of beans they've used and the way they were processed, it could be the roast profile they've used, it could even be a barista who doesn't know how to extract properly, and/or it could absolutely be that they just aren't very good at making coffee.",
@@ -100,14 +98,13 @@
           "title": "Can’t replicate cafe quality",
           "url": "https://www.reddit.com/r/pourover/comments/1jpt092/cant_replicate_cafe_quality/"
         }
-      ],
-      "description": "Acidity refers to the bright, tangy notes in coffee, often found in light roast or African beans."
+      ]
     },
     {
       "name": "fruity",
       "category": "flavor",
       "value": 18,
-      "avg_sentiment": 0.53,
+      "avg_sentiment": 0.5305,
       "examples": [
         {
           "text": "Medium-light roast sumatra with lychee cofermentation process from Sleeping Giant Roasters in CT. Brewed in a vessel pourover. Comes out pretty chocolatey, not as fruity or funky as I anticipated but I adore it.\n\nLooking at Ilse's new anaerobic release, but i have half a bag of brazilian natural medium-dark to burn through from The BOP (beautiful coffee that tastes like cherry cordial) too so I'm not buying anything new any time soon.",
@@ -134,8 +131,7 @@
           "title": "Funky beans?",
           "url": "https://www.reddit.com/r/espresso/comments/1jp8n1y/funky_beans/"
         }
-      ],
-      "description": "Fruity describes coffee with berry, citrus, or tropical fruit notes, common in natural processed beans."
+      ]
     },
     {
       "name": "nutty",
@@ -153,14 +149,13 @@
           "title": "[MOD] The Daily Question Thread",
           "url": "https://www.reddit.com/r/Coffee/comments/1jl0dwv/mod_the_daily_question_thread/"
         }
-      ],
-      "description": "Nutty flavors are characterized by almond, hazelnut, or peanut-like tastes, often in medium roasts."
+      ]
     },
     {
       "name": "creamy",
       "category": "flavor",
       "value": 11,
-      "avg_sentiment": 0.272,
+      "avg_sentiment": 0.2715,
       "examples": [
         {
           "text": "Extra creamy oat milk is the best dairy replacement I've found. Best creamer for me is organic cow half and half, followed by 4-5% whole milk. Extra creamy oatmeal milk is close enough. \n\nEvery other creamer I've tried has some serious problem 🤣",
@@ -187,14 +182,13 @@
           "title": "Which alternative milk taste most like cows milk in coffee/espresso?",
           "url": "https://www.reddit.com/r/Coffee/comments/1jozab0/which_alternative_milk_taste_most_like_cows_milk/"
         }
-      ],
-      "description": "Creamy describes a smooth mouthfeel, sometimes associated with milk-based drinks or certain beans."
+      ]
     },
     {
       "name": "espresso",
       "category": "type",
       "value": 50,
-      "avg_sentiment": 0.484,
+      "avg_sentiment": 0.4842,
       "examples": [
         {
           "text": "They do make some of the best espresso machines, this is true.",
@@ -221,14 +215,13 @@
           "title": "[MOD] The Daily Question Thread",
           "url": "https://www.reddit.com/r/Coffee/comments/1jpkwmk/mod_the_daily_question_thread/"
         }
-      ],
-      "description": "Espresso is a concentrated coffee made by forcing hot water under pressure through fine grounds."
+      ]
     },
     {
       "name": "latte",
       "category": "type",
       "value": 50,
-      "avg_sentiment": 0.409,
+      "avg_sentiment": 0.4085,
       "examples": [
         {
           "text": "https://www.stumptowncoffee.com/products/trapper-creek-decaf?variant=40006909362344\n\nI've stopped consuming caffeine over a year ago since I didn't like how I was dependent on it, but quickly I learned how much I loved the routine of making and enjoy coffee. My husband was wonderful and found me some Swiss water decaf coffee. This one has been my favorite so far! I typically make it as a latte with some Steamed whole milk for the best flavor.\nIt's a little sweet with Graham cracker flavor and is not bitter. I personally love blonde roasts, but this medium roast stole My heart.",
@@ -255,14 +248,13 @@
           "title": "Which alternative milk taste most like cows milk in coffee/espresso?",
           "url": "https://www.reddit.com/r/Coffee/comments/1jozab0/which_alternative_milk_taste_most_like_cows_milk/"
         }
-      ],
-      "description": "Latte is a milk-based espresso drink with a high ratio of steamed milk to coffee."
+      ]
     },
     {
       "name": "cold brew",
       "category": "type",
       "value": 36,
-      "avg_sentiment": 0.444,
+      "avg_sentiment": 0.4436,
       "examples": [
         {
           "text": "Oh, yeah, you said it was a light roast?  Dialing in a light roast cold brew can be… interesting.  Grind fine, and leave it at room temperature instead of in the refrigerator.  The sourness you got is probably from underextraction, so you may need to leave it for quite a while even with the higher brewing temperature.  From my experience, brewing at room temperature is about twice as fast as brewing in the refrigerator.  When I’m dialing in a cold brew, I will honestly schedule it for the weekend so I can keep checking on it throughout the day.",
@@ -289,14 +281,13 @@
           "title": "[MOD] The Daily Question Thread",
           "url": "https://www.reddit.com/r/Coffee/comments/1jnzn08/mod_the_daily_question_thread/"
         }
-      ],
-      "description": "Cold brew is made by steeping coarse coffee grounds in cold water for an extended period."
+      ]
     },
     {
       "name": "americano",
       "category": "type",
       "value": 21,
-      "avg_sentiment": 0.323,
+      "avg_sentiment": 0.3233,
       "examples": [
         {
           "text": "Are some local roasteries overhyped? Our local roastery/cafe makes the worst coffee. So overwhelmingly sour. Halfway through the cup I can hardly drink it (black coffee only). Pour over, americano, or drips, it's all so sour. \n\nThis is the only roastery in our city of 70000 and possibly one of three decent cafes, so I think people say they like it because of the exclusivity.\n\nPeople rave about this place and their reviews are great. Am I out of touch? Or is it the children?",
@@ -323,14 +314,13 @@
           "title": "How much do these puck prep techniques really matter? (%)",
           "url": "https://www.reddit.com/r/espresso/comments/1jpwusz/how_much_do_these_puck_prep_techniques_really/"
         }
-      ],
-      "description": "Americano is an espresso diluted with hot water, resembling drip coffee in strength and volume."
+      ]
     },
     {
       "name": "french press",
       "category": "brew",
       "value": 38,
-      "avg_sentiment": 0.31,
+      "avg_sentiment": 0.3101,
       "examples": [
         {
           "text": "Hah! Yeah no nothing really appears different. Each day I mildly wash the French press. I instantly thought our milk was bad because we had it delivered (as part of a promotion), but then after testing the milk, it seemed fine. And the second cup I brewed was normal again.\n\nI would even consider that the acrid taste could’ve come from dishsoap, which could make sense but Im really anal about rinsing after washing. A bit of ocd there.",
@@ -357,14 +347,13 @@
           "title": "[MOD] The Daily Question Thread",
           "url": "https://www.reddit.com/r/Coffee/comments/1jorwa8/mod_the_daily_question_thread/"
         }
-      ],
-      "description": "French press is a manual brewing method using immersion and a plunger to extract coffee."
+      ]
     },
     {
       "name": "pour-over",
       "category": "brew",
       "value": 8,
-      "avg_sentiment": 0.435,
+      "avg_sentiment": 0.4347,
       "examples": [
         {
           "text": "Picked up some Tribo single cup pour-overs in Guatemalan Antigua.  They're tasty but it's definitely an 8oz cup per package.  12oz was starting to be weak.  Little over $2 a cup, going into my camping coffee for this summer as was the original plan.\n\nDebating if I want to try making Turkish coffee this year, have to look into making it with my camp stove.",
@@ -391,14 +380,13 @@
           "title": "How caffeinated were you on your first days of owning a new machine?",
           "url": "https://www.reddit.com/r/espresso/comments/1joqob8/how_caffeinated_were_you_on_your_first_days_of/"
         }
-      ],
-      "description": "Pour-over is a drip method where hot water is poured over grounds in a filter for precise control."
+      ]
     },
     {
       "name": "moka pot",
       "category": "brew",
       "value": 16,
-      "avg_sentiment": 0.39,
+      "avg_sentiment": 0.3898,
       "examples": [
         {
           "text": "Question regarding mechanical coffee scales😸\n\nI'm currently looking for a good mechanical scale that I can use for weighing my coffee. Either new or something I'll need to hunt for in antique shops. I'm fully aware a little battery operated scale will serve my needs perfectly. I will get one eventually for travel and convenience but hopefully you'll hear me out first \n\nMy coffee set-up as it is so far is completely manual. \n\nIt consists of my 1950s mug, 1920s Spong & Co No.1 coffee grinder, my Great Grandmothers percolator she gifted me, and several other older kitchen appliances. \n\nI also have a medium sized Birchleaf coffee grinder (Looks exactly like the full sized ones you would see in the early 18th century in grocery stores), London pottery coffee grinder, Moka pot, a few other percolators of various brands, Chemex, and a portable manual pump expesso brewer. Several of these are gifts as well (Likely because I enjoy making everyone coffee)\n\nI love doing stuff manually because it brings me closer to what I'm working with and I find it rather peaceful/relaxing. I could say more but I already risk coming across as a coffee snob as it is.😹\n\nI'm very new to weighing my coffee and have been using the \"Well it looks good enough\" or measuring scoop method. So I'm hoping to up my coffee game \n\nAll the videos I've watched on YouTube or read about when it comes to learning how to weight coffee always uses a digital scale. There's not really much information out there for manual mechanical scales and coffee. \n\nI've considered using several other larger scales but I think it's possible they'd be overkill. I wouldn't mind a large scale but something at least wealdy to bring out when I make coffee would be nice. Something like a Taylor Kitchen scale perhaps?\n\nThe TLDR version of this is I think an automatic digital coffee scale will throw off my set-up and mess up my shelf appeal as of right now. \n\nThank you to anyone who even took the time to read this 😸\n\nEdit: I have no budget",
@@ -425,14 +413,13 @@
           "title": "I did not expect moka pot coffee to taste this different.",
           "url": "https://www.reddit.com/r/Coffee/comments/shh3fj/i_did_not_expect_moka_pot_coffee_to_taste_this/"
         }
-      ],
-      "description": "Moka pot brews strong stovetop coffee by passing steam-pressured water through grounds."
+      ]
     },
     {
       "name": "aeropress",
       "category": "brew",
       "value": 40,
-      "avg_sentiment": 0.54,
+      "avg_sentiment": 0.5403,
       "examples": [
         {
           "text": "After decades of not liking coffee, and thinking all coffee was just bitter or acidic, it's pretty wild once you get on this side of the fence and experience everything else out there this isn't made buy a huge corporate chain place (or pod maker). Before, I couldn't be bothered to do more than put a pod in the Keurig or Nespresso machine and press *brew*. Now I'll happily spend 5 minutes to make a good cup of joe. \n\nWhenever I go back to my parents for a few days I usually bring some back with me and my trusty AeroPress (I've upgraded to the Weber BIRD in the past few months, *huge change in quality*), and make a cup for my mom too. She'd ask what kind of coffee it was (meaning flavors)...then she would load it up with about 2 ounces of non-dairy Hazelnut flavored creamer.",
@@ -459,14 +446,13 @@
           "title": "[MOD] The Daily Question Thread",
           "url": "https://www.reddit.com/r/Coffee/comments/1jnzn08/mod_the_daily_question_thread/"
         }
-      ],
-      "description": "Aeropress is a compact brewing device using pressure and immersion for rapid coffee extraction."
+      ]
     },
     {
       "name": "arabica",
       "category": "origin",
       "value": 5,
-      "avg_sentiment": 0.855,
+      "avg_sentiment": 0.8549,
       "examples": [
         {
           "text": "You got a garage? A deck? A place at work?\n\nIn my opinion all coffee even the ultra light roasts have aroma. Yes, maybe different aroma but still a distinct coffee smell to me. Specialty grade arabica is known for aroma. I think Robusta is known for less aroma. This is popular in instant coffee. Lately there is a rise in specialty grade robusta but I do know much about it.",
@@ -493,8 +479,7 @@
           "title": "I don’t think I’ve ever waited so long for something to be delivered!",
           "url": "https://www.reddit.com/r/HomeBarista/comments/miusdl/i_dont_think_ive_ever_waited_so_long_for/"
         }
-      ],
-      "description": "Arabica is a coffee species known for smooth flavor, mild acidity, and lower caffeine levels."
+      ]
     },
     {
       "name": "robusta",
@@ -527,14 +512,13 @@
           "title": "I don’t think I’ve ever waited so long for something to be delivered!",
           "url": "https://www.reddit.com/r/HomeBarista/comments/miusdl/i_dont_think_ive_ever_waited_so_long_for/"
         }
-      ],
-      "description": "Robusta is a coffee species higher in caffeine, often used in espresso blends for crema and strength."
+      ]
     },
     {
       "name": "ethiopia",
       "category": "origin",
       "value": 9,
-      "avg_sentiment": 0.704,
+      "avg_sentiment": 0.7041,
       "examples": [
         {
           "text": "I remember my first Ethiopian natural. So fruity. Slightly manurey too in a damp chewed grass kind of fragrant way (that sounds ridiculous, sorry, I mean, it had an almost fermented flavour). LOVED it. \n\nFor ages I kept trying to recreate it but then I realised not only does the origin and processing affect the flavour but so does the freshness. Which is obvious, but it took me a few bags of stale tasteless beans labelled Yirgacheffe before I cottoned on fully. A neighbour who has a business in a town at the foot of the highlands in PNG, a town in which the highland grown beans are processed, brought me a kilo back from there to the Central Queensland town we both lived in, which were so fresh the oil clogged my grinder until I accepted I needed to ignore the conventional wisdom and grind on much coarser settings. It had a very different flavour to the Ethiopian beans but, wow, just wow, in terms of such an amazing flavour.",
@@ -561,8 +545,7 @@
           "title": "[MOD] What have you been brewing this week?/ Coffee bean recommendations",
           "url": "https://www.reddit.com/r/Coffee/comments/1jlz6xd/mod_what_have_you_been_brewing_this_week_coffee/"
         }
-      ],
-      "description": "Ethiopia is considered the birthplace of coffee, known for fruity, floral, and complex profiles."
+      ]
     },
     {
       "name": "colombia",
@@ -595,8 +578,7 @@
           "title": "Unfortunately, the beans do matter.",
           "url": "https://www.reddit.com/r/Coffee/comments/1jj3ol9/unfortunately_the_beans_do_matter/"
         }
-      ],
-      "description": "Colombian coffee is known for balanced acidity, nutty tones, and smooth medium body."
+      ]
     }
   ]
 }

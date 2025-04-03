@@ -86,6 +86,31 @@ ul.task-list li input[type="checkbox"] {
   import { drawPackedBubbleAnimated } from "./bubble_bounce_hover.js";
   drawPackedBubbleAnimated("#bounce-bubble", "data/bubble_with_descriptions.json");
 </script>
+<section id="block-timeline-of-coffee-comments" class="level2">
+<h2 class="anchored" data-anchor-id="block-timeline-of-coffee-comments">Block Timeline of Coffee Comments</h2>
+<div id="sentiment-block" style="position: relative;">
+
+</div>
+<div id="hover-info" style="
+  position: absolute;
+  display: none;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 14px;
+  max-width: 280px;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+  border-radius: 6px;
+  z-index: 10;
+">
+
+</div>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script type="module">
+  import { drawSentimentBlockPlot } from "./sentiment_block_plot.js";
+  drawSentimentBlockPlot("#sentiment-block", "data/sentiment_blocks.json");
+</script>
+</section>
 
 </main>
 <!-- /main column -->

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Block Timeline of Coffee Comments</title>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <style>
+    body {
+      font-family: "Comic Sans MS", sans-serif;
+      margin: 40px;
+    }
+    .tooltip {
+      position: absolute;
+      background: #fff;
+      padding: 10px;
+      font-size: 13px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      pointer-events: none;
+      max-width: 300px;
+    }
+  </style>
+</head>
+<body>
+  <h2>🧱 Block Timeline of Coffee Comments</h2>
+  <div id="timeline-blocks"></div>
+
+  <script type="module">
+    import { drawTimelineBlocks } from "./block_timeline.js";
+    drawTimelineBlocks("#timeline-blocks", "data/comments_with_sentiment_with_date.json");
+  </script>
+</body>
+</html>

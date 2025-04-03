@@ -1,90 +1,108 @@
-import os
 import json
-import time
-from dotenv import load_dotenv
-import praw
+import os
+import numpy as np
+from collections import defaultdict
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+import nltk
 
-# Loading environment
-load_dotenv()
-REDDIT_CLIENT_ID = os.getenv("REDDIT_CLIENT_ID")
-REDDIT_CLIENT_SECRET = os.getenv("REDDIT_CLIENT_SECRET")
-REDDIT_USER_AGENT = os.getenv("REDDIT_USER_AGENT")
+# ✅ 确保 VADER 字典加载
+nltk.download("vader_lexicon")
 
-# Initiate Reddit Instance
-reddit = praw.Reddit(
-    client_id=REDDIT_CLIENT_ID,
-    client_secret=REDDIT_CLIENT_SECRET,
-    user_agent=REDDIT_USER_AGENT
-)
+# ====== 📁 路径配置 ======
+INPUT_FILE = "data/raw_data/post.json"
+OUTPUT_DIR = "data/processed"
+os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-# Key words
-subreddits = [
-    "Coffee", "espresso", "barista", "pourover",
-    "coffeebeans", "coffeegeek", "homebarista", "latteart"
-]
-
-keywords = {
-    "flavor": ["bitter", "sweet", "acidity", "fruity", "nutty", "creamy"],
-    "type": ["espresso", "latte", "cold brew", "americano"],
-    "brew": ["french press", "pour-over", "moka pot", "aeropress"],
-    "origin": ["arabica", "robusta", "ethiopia", "colombia"]
+# ====== 📘 关键词简介（给气泡用） ======
+descriptions = {
+    "bitter": "Bitter is one of the basic taste sensations often associated with dark roast or over-extraction.",
+    "sweet": "Sweetness in coffee is a desirable trait, indicating well-developed sugars during roasting.",
+    "acidity": "Acidity refers to the bright, tangy notes in coffee, often found in light roast or African beans.",
+    "fruity": "Fruity describes coffee with berry, citrus, or tropical fruit notes, common in natural processed beans.",
+    "nutty": "Nutty flavors are characterized by almond, hazelnut, or peanut-like tastes, often in medium roasts.",
+    "creamy": "Creamy describes a smooth mouthfeel, sometimes associated with milk-based drinks or certain beans.",
+    "espresso": "Espresso is a concentrated coffee made by forcing hot water under pressure through fine grounds.",
+    "latte": "Latte is a milk-based espresso drink with a high ratio of steamed milk to coffee.",
+    "cold brew": "Cold brew is made by steeping coarse coffee grounds in cold water for an extended period.",
+    "americano": "Americano is an espresso diluted with hot water, resembling drip coffee in strength and volume.",
+    "french press": "French press is a manual brewing method using immersion and a plunger to extract coffee.",
+    "pour-over": "Pour-over is a drip method where hot water is poured over grounds in a filter for precise control.",
+    "moka pot": "Moka pot brews strong stovetop coffee by passing steam-pressured water through grounds.",
+    "aeropress": "Aeropress is a compact brewing device using pressure and immersion for rapid coffee extraction.",
+    "arabica": "Arabica is a coffee species known for smooth flavor, mild acidity, and lower caffeine levels.",
+    "robusta": "Robusta is a coffee species higher in caffeine, often used in espresso blends for crema and strength.",
+    "ethiopia": "Ethiopia is considered the birthplace of coffee, known for fruity, floral, and complex profiles.",
+    "colombia": "Colombian coffee is known for balanced acidity, nutty tones, and smooth medium body."
 }
 
-# Main function
-def collect_comments_by_keyword(keywords_dict, max_comments_per_keyword=50):
-    result = []
+# ====== 📊 初始化情绪分析器 ======
+sid = SentimentIntensityAnalyzer()
 
-    for category, kw_list in keywords_dict.items():
-        for keyword in kw_list:
-            print(f"\n🔍 Searching for: '{keyword}' ({category})")
-            keyword_data = {
-                "keyword": keyword,
-                "category": category,
-                "examples": [],
-                "size": 0
-            }
+# ====== 📥 加载原始数据 ======
+with open(INPUT_FILE, "r", encoding="utf-8") as f:
+    raw_data = json.load(f)
 
-            matched = set()
-            count = 0
+# ====== 🔁 开始处理 ======
+comments_with_sentiment = []
+bubble_grouped = defaultdict(lambda: {
+    "category": None,
+    "examples": [],
+    "sentiments": []
+})
 
-            for sub in subreddits:
-                print(f"  📂 Searching comments in r/{sub} ...")
-                try:
-                    for comment in reddit.subreddit(sub).comments(limit=1000):
-                        text = comment.body.strip()
-                        if keyword.lower() in text.lower() and len(text) >= 15:
-                            if text not in matched:
-                                keyword_data["examples"].append({
-                                    "text": text,
-                                    "subreddit": sub,
-                                    "post_title": comment.submission.title,
-                                    "post_url": f"https://www.reddit.com{comment.submission.permalink}"
-                                })
-                                matched.add(text)
-                                count += 1
-                                if count >= max_comments_per_keyword:
-                                    break
-                    if count >= max_comments_per_keyword:
-                        break
-                except Exception as e:
-                    print(f"⚠️ Error in r/{sub}: {e}")
-                    continue
-                time.sleep(0.5)  
+for item in raw_data:
+    keyword = item["keyword"]
+    category = item["category"]
 
-            keyword_data["size"] = len(keyword_data["examples"])
-            result.append(keyword_data)
-            print(f"✅ Collected {keyword_data['size']} comments for '{keyword}'")
+    for ex in item["examples"]:
+        text = ex["text"]
+        sentiment = sid.polarity_scores(text)["compound"]
 
-    return result
+        comment_entry = {
+            "keyword": keyword,
+            "category": category,
+            "text": text,
+            "sentiment": sentiment,
+            "title": ex.get("post_title", ""),
+            "url": ex.get("post_url", ""),
+            "score": ex.get("score", None),
+            "created_utc": ex.get("created_utc", None)
+        }
 
-# Save the data
-all_data = collect_comments_by_keyword(keywords, max_comments_per_keyword=50)
+        comments_with_sentiment.append(comment_entry)
 
-# Output File Path
-output_path = "../data/raw_data/reddit_coffee_bubbles_full.json"
-os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        bubble_grouped[keyword]["category"] = category
+        bubble_grouped[keyword]["sentiments"].append(sentiment)
+        bubble_grouped[keyword]["examples"].append({
+            "text": text,
+            "title": comment_entry["title"],
+            "url": comment_entry["url"]
+        })
 
-with open(output_path, "w", encoding="utf-8") as f:
-    json.dump(all_data, f, ensure_ascii=False, indent=2)
+# ====== 💾 保存所有评论情绪数据 ======
+with open(os.path.join(OUTPUT_DIR, "comments_with_sentiment.json"), "w", encoding="utf-8") as f:
+    json.dump(comments_with_sentiment, f, ensure_ascii=False, indent=2)
 
-print(f"\n🎉 Scraping complete! Data saved to {output_path}")
+# ====== 🎈 准备 bubble 用数据结构 ======
+bubble_data = {
+    "name": "coffee",
+    "children": []
+}
+
+for keyword, info in bubble_grouped.items():
+    sentiments = info["sentiments"]
+    avg_sent = float(np.mean(sentiments)) if sentiments else 0
+
+    bubble_data["children"].append({
+        "name": keyword,
+        "category": info["category"],
+        "value": len(info["examples"]),
+        "avg_sentiment": round(avg_sent, 3),
+        "examples": info["examples"][:5],
+        "description": descriptions.get(keyword, "")
+    })
+
+with open(os.path.join(OUTPUT_DIR, "bubble_with_descriptions.json"), "w", encoding="utf-8") as f:
+    json.dump(bubble_data, f, ensure_ascii=False, indent=2)
+
+print("Done! All files saved to:", OUTPUT_DIR)
