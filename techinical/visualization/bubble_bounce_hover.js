@@ -6,10 +6,10 @@ export function drawPackedBubbleAnimated(containerSelector, dataPath) {
   const height = 600;
 
   const morandiPalette = {
-    flavor: ['#A9BDB1', '#B6C1AE', '#C3C8A9'],
-    type:   ['#E6B7A9', '#EBC3B2', '#F1D1C3'],
-    brew:   ['#A4B0BC', '#BAC5D1', '#CAD6DE'],
-    origin: ['#D9B8A8', '#E5C9BA', '#F0D9CC']
+    flavor: ['#F28CA6', '#E6B2BA', '#FFE3E3', '#FF8A8A','#F7B5CA','#EDDFE0'], // pink
+    type:   ['#F39E60', '#FFE6A9',  '#FFD09B', '#FFB38E'],  //orange
+    brew:   ['#C5D3E8', '#BAC5D1', '#CAD6DE','#D4F6FF'], //blue
+    origin: ['#95D2B3', '#CADABF', '#ACE1AF','#BFF6C3']
   };
 
   const svg = d3.select(containerSelector)
@@ -92,7 +92,12 @@ export function drawPackedBubbleAnimated(containerSelector, dataPath) {
     })
       .on("click", function (event, d) {
         const category = encodeURIComponent(d.data.category);
-        window.location.href = `details/viewer_by_category.html?category=${category}`;
+        document.querySelector("#category-details").style.display = "block";
+        document.querySelector("#category-details").innerHTML = ""; 
+
+        import("../details/sentiment_polar_rough.js").then(module => {
+          module.drawSentimentPolarPlot("#category-details", "data/comments_with_sentiment.json", d.data.category);
+        });
       });
   }); 
 }
