@@ -36,7 +36,7 @@ def collect_comments_by_keyword(keywords_dict, max_comments_per_keyword=50):
 
     for category, kw_list in keywords_dict.items():
         for keyword in kw_list:
-            print(f"\n🔍 Searching for: '{keyword}' ({category})")
+            print(f"\nSearching for: '{keyword}' ({category})")
             keyword_data = {
                 "keyword": keyword,
                 "category": category,
@@ -48,7 +48,7 @@ def collect_comments_by_keyword(keywords_dict, max_comments_per_keyword=50):
             count = 0
 
             for sub in subreddits:
-                print(f"  📂 Searching comments in r/{sub} ...")
+                print(f" Searching comments in r/{sub} ...")
                 try:
                     for comment in reddit.subreddit(sub).comments(limit=1000):
                         text = comment.body.strip()
@@ -67,24 +67,22 @@ def collect_comments_by_keyword(keywords_dict, max_comments_per_keyword=50):
                     if count >= max_comments_per_keyword:
                         break
                 except Exception as e:
-                    print(f"⚠️ Error in r/{sub}: {e}")
+                    print(f"Error in r/{sub}: {e}")
                     continue
                 time.sleep(0.5)  
 
             keyword_data["size"] = len(keyword_data["examples"])
             result.append(keyword_data)
-            print(f"✅ Collected {keyword_data['size']} comments for '{keyword}'")
+            print(f"Collected {keyword_data['size']} comments for '{keyword}'")
 
     return result
 
-# Save the data
 all_data = collect_comments_by_keyword(keywords, max_comments_per_keyword=50)
 
-# Output File Path
 output_path = "../data/raw_data/reddit_coffee_bubbles_full.json"
 os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
 with open(output_path, "w", encoding="utf-8") as f:
     json.dump(all_data, f, ensure_ascii=False, indent=2)
 
-print(f"\n🎉 Scraping complete! Data saved to {output_path}")
+print(f"\nScraping complete! Data saved to {output_path}")

@@ -5,18 +5,17 @@ from collections import defaultdict
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import nltk
 
-# 🔧 如果第一次运行，请确保 VADER 词典存在
 nltk.download("vader_lexicon")
 
-# ======== 📁 路径设置 ========
+# Path
 INPUT_FILE = "data/raw_data/reddit_coffee_bubbles_full.json"
 OUTPUT_DIR = "data/processed"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-# ======== 📊 情绪分析器初始化 ========
+# Sentiment Analyzer Initialization
 sid = SentimentIntensityAnalyzer()
 
-# ======== 📚 简要介绍词典（用于 bubble 描述） ========
+# Brief introduction to the dictionary for bubble description
 descriptions = {
     "bitter": "Bitter is one of the basic taste sensations often associated with dark roast or over-extraction.",
     "sweet": "Sweetness in coffee is a desirable trait, indicating well-developed sugars during roasting.",
@@ -38,11 +37,10 @@ descriptions = {
     "colombia": "Colombian coffee is known for balanced acidity, nutty tones, and smooth medium body."
 }
 
-# ======== 📥 加载原始数据 ========
 with open(INPUT_FILE, "r", encoding="utf-8") as f:
     raw_data = json.load(f)
 
-# ======== 🔁 处理每条评论 ========
+# Process each comment
 comments_with_sentiment = []
 aggregated = defaultdict(lambda: {"category": None, "examples": [], "sentiments": []})
 category_split = defaultdict(list)
@@ -57,7 +55,6 @@ for entry in raw_data:
         post_title = ex.get("post_title", "")
         post_url = ex.get("post_url", "")
 
-        # ✅ 收集完整数据用于单条评论散点图等
         comments_with_sentiment.append({
             "keyword": keyword,
             "category": category,
@@ -67,7 +64,7 @@ for entry in raw_data:
             "url": post_url
         })
 
-        # ✅ 汇总给 bubble 用
+        # Aggregate for bubble use
         agg = aggregated[keyword]
         agg["category"] = category
         agg["examples"].append({
@@ -77,7 +74,7 @@ for entry in raw_data:
         })
         agg["sentiments"].append(sentiment)
 
-        # ✅ 按类别分组保存
+        # Save by category
         category_split[category].append({
             "keyword": keyword,
             "text": text,
@@ -86,7 +83,7 @@ for entry in raw_data:
             "url": post_url
         })
 
-# ======== 📦 输出 bubble 结构文件 ========
+# Output bubble structure file 
 bubble_data = {
     "name": "coffee",
     "children": []
@@ -100,18 +97,18 @@ for keyword, info in aggregated.items():
         "category": info["category"],
         "value": value,
         "avg_sentiment": round(avg_sentiment, 3),
-        "examples": info["examples"][:5],  # 带 title 和 url
+        "examples": info["examples"][:5],  
         "description": descriptions.get(keyword, "")
     })
 
 with open(os.path.join(OUTPUT_DIR, "bubble_with_descriptions.json"), "w", encoding="utf-8") as f:
     json.dump(bubble_data, f, ensure_ascii=False, indent=2)
 
-# ======== 💾 保存所有评论情绪分数 ========
+# Save all comment sentiment scores 
 with open(os.path.join(OUTPUT_DIR, "comments_with_sentiment.json"), "w", encoding="utf-8") as f:
     json.dump(comments_with_sentiment, f, ensure_ascii=False, indent=2)
 
-# ======== 💾 保存分类评论文件 ========
+# Save category comment files
 for category, items in category_split.items():
     filename = f"{category}_comments.json"
     with open(os.path.join(OUTPUT_DIR, filename), "w", encoding="utf-8") as f:
