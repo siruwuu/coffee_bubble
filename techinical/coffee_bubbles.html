@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Coffee Keyword Packed Bubble Comparison</title>
+<title>coffee_bubbles</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -35,37 +35,22 @@ ul.task-list li input[type="checkbox"] {
 <link href="coffee_bubbles_files/libs/bootstrap/bootstrap-8a79a254b8e706d3c925cde0a310d4f0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="fullcontent">
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Coffee Keyword Packed Bubble Comparison</h1>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
 
 
 <div id="bounce-bubble" style="position: relative;">
 
 </div>
-<div id="hover-info" style="
+<div id="hover-info-bubble" style="
   position: absolute;
   top: 40px;
   right: 40px;
@@ -83,17 +68,15 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script type="module">
-  import { drawPackedBubbleAnimated } from "./bubble_bounce_hover.js";
-  drawPackedBubbleAnimated("#bounce-bubble", "data/bubble_with_descriptions.json");
+  import { drawPackedBubbleAnimated } from "./visualization/bubble_bounce_hover.js";
+  drawPackedBubbleAnimated("#bounce-bubble", "visualization/data/bubble_with_descriptions.json");
 </script>
-<section id="block-timeline-of-coffee-comments" class="level2">
-<h2 class="anchored" data-anchor-id="block-timeline-of-coffee-comments">Block Timeline of Coffee Comments</h2>
+<hr>
 <div id="sentiment-block" style="position: relative;">
 
 </div>
-<div id="hover-info" style="
+<div id="hover-info-timeline" style="
   position: absolute;
-  display: none;
   background: white;
   border: 1px solid #ccc;
   padding: 10px;
@@ -102,15 +85,14 @@ ul.task-list li input[type="checkbox"] {
   box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
   border-radius: 6px;
   z-index: 10;
+  display: none;
 ">
 
 </div>
-<script src="https://d3js.org/d3.v7.min.js"></script>
 <script type="module">
-  import { drawSentimentBlockPlot } from "./sentiment_block_plot.js";
-  drawSentimentBlockPlot("#sentiment-block", "data/sentiment_blocks.json");
+  import { drawSentimentBlockPlot } from "./visualization/sentiment_block_plot.js";
+  drawSentimentBlockPlot("#sentiment-block", "visualization/data/sentiment_blocks.json");
 </script>
-</section>
 
 </main>
 <!-- /main column -->

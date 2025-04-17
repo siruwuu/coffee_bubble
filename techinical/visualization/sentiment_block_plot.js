@@ -10,6 +10,9 @@ export function drawSentimentBlockPlot(containerSelector, dataPath) {
     .attr("width", width)
     .attr("height", height);
 
+  // 正确选择 tooltip div（确保 HTML 中 id 为 hover-info-timeline）
+  const tooltip = d3.select("#hover-info-timeline");
+
   d3.json(dataPath).then(data => {
     // 构建 bin 分组
     const nested = d3.groups(data, d => d.sentiment_bin);
@@ -44,20 +47,21 @@ export function drawSentimentBlockPlot(containerSelector, dataPath) {
       .on("mouseover", function (event, d) {
         d3.select(this).attr("fill", "#ff8a65");
 
-        const tooltip = d3.select("#hover-info");
-        tooltip.style("display", "block")
+        tooltip
+          .style("display", "block")
           .html(`
-            <div><b>Keyword:</b> ${d.keyword}</div>
-            <div><b>Sentiment:</b> ${d.sentiment_bin}</div>
-            <div style="margin-top:5px;">${d.text.slice(0, 180)}...</div>
-            <div><a href="${d.url}" target="_blank">🔗 View Post</a></div>
+            <strong>${d.title}</strong><br/>
+            <b>Keyword:</b> ${d.keyword}<br/>
+            <b>Sentiment:</b> ${d.sentiment_bin}<br/>
+            <div style="margin-top:5px;">${d.text.slice(0, 160)}...</div>
+            <div style="margin-top:4px;"><a href="${d.url}" target="_blank">🔗 View Post</a></div>
           `)
-          .style("left", (event.pageX + 12) + "px")
-          .style("top", (event.pageY - 30) + "px");
+          .style("left", (event.pageX + 15) + "px")
+          .style("top", (event.pageY - 20) + "px");
       })
       .on("mouseout", function () {
         d3.select(this).attr("fill", "#333");
-        d3.select("#hover-info").style("display", "none");
+        tooltip.style("display", "none");
       });
 
     // 添加 x 轴
@@ -70,11 +74,13 @@ export function drawSentimentBlockPlot(containerSelector, dataPath) {
       .selectAll("text")
       .style("font-size", "12px");
 
+    // 图标题
     svg.append("text")
       .attr("x", width / 2)
       .attr("y", margin.top / 2)
       .attr("text-anchor", "middle")
       .style("font-size", "18px")
+      .style("font-family", "sans-serif")
       .text("Sentiment-Based Block Timeline");
   });
 }

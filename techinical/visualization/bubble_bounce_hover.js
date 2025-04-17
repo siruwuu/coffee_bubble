@@ -1,4 +1,3 @@
-// 方法三：不展示 tooltip，使用动画表达 Hover 效果（呼吸/弹跳） + 点击跳转到评论页面
 import rough from "https://cdn.jsdelivr.net/npm/roughjs@4.5.1/bundled/rough.esm.js";
 
 export function drawPackedBubbleAnimated(containerSelector, dataPath) {
@@ -6,9 +5,9 @@ export function drawPackedBubbleAnimated(containerSelector, dataPath) {
   const height = 600;
 
   const morandiPalette = {
-    flavor: ['#F28CA6', '#E6B2BA', '#FFE3E3', '#FF8A8A','#F7B5CA','#EDDFE0'], // pink
-    type:   ['#F39E60', '#FFE6A9',  '#FFD09B', '#FFB38E'],  //orange
-    brew:   ['#C5D3E8', '#BAC5D1', '#CAD6DE','#D4F6FF'], //blue
+    flavor: ['#F28CA6', '#E6B2BA', '#FFE3E3', '#FF8A8A','#F7B5CA','#EDDFE0'],
+    type:   ['#F39E60', '#FFE6A9', '#FFD09B', '#FFB38E'],
+    brew:   ['#C5D3E8', '#BAC5D1', '#CAD6DE','#D4F6FF'],
     origin: ['#95D2B3', '#CADABF', '#ACE1AF','#BFF6C3']
   };
 
@@ -16,6 +15,8 @@ export function drawPackedBubbleAnimated(containerSelector, dataPath) {
     .append("svg")
     .attr("width", width)
     .attr("height", height);
+
+  const tooltip = d3.select("#hover-info-bubble");
 
   d3.json(dataPath).then(data => {
     const pack = d3.pack().size([width, height]).padding(4);
@@ -77,6 +78,16 @@ export function drawPackedBubbleAnimated(containerSelector, dataPath) {
         .duration(300)
         .style("font-size", Math.max(10, d.r / 2.2) + "px")
         .style("font-weight", "bold");
+
+      tooltip
+        .style("display", "block")
+        .html(`
+          <strong>${d.data.name}</strong><br/>
+          <b>Category:</b> ${d.data.category}<br/>
+          <b>Count:</b> ${d.data.value}<br/>
+        `)
+        .style("left", (event.pageX + 10) + "px")
+        .style("top", (event.pageY - 20) + "px");
     })
     .on("mouseout", function (event, d) {
       d3.select(this)
@@ -89,15 +100,17 @@ export function drawPackedBubbleAnimated(containerSelector, dataPath) {
         .duration(300)
         .style("font-size", Math.max(10, d.r / 3) + "px")
         .style("font-weight", "normal");
-    })
-      .on("click", function (event, d) {
-        const category = encodeURIComponent(d.data.category);
-        document.querySelector("#category-details").style.display = "block";
-        document.querySelector("#category-details").innerHTML = ""; 
 
-        import("../details/sentiment_polar_rough.js").then(module => {
-          module.drawSentimentPolarPlot("#category-details", "data/comments_with_sentiment.json", d.data.category);
-        });
+      tooltip.style("display", "none");
+    })
+    .on("click", function (event, d) {
+      const category = encodeURIComponent(d.data.category);
+      document.querySelector("#category-details").style.display = "block";
+      document.querySelector("#category-details").innerHTML = "";
+
+      import("../details/sentiment_polar_rough.js").then(module => {
+        module.drawSentimentPolarPlot("#category-details", "data/comments_with_sentiment.json", d.data.category);
       });
-  }); 
+    });
+  });
 }

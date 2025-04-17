@@ -1,0 +1,64 @@
+---
+format: html
+css: styles.css
+resources:
+  - visualization/data/bubble_with_descriptions.json
+  - visualization/data/sentiment_blocks.json
+  - visualization/details/**
+  - visualization/bubble_bounce_hover.js
+  - visualization/sentiment_block_plot.js
+  - visualization/block_timeline_sentiment.js
+javascripts:
+  - visualization/bubble_bounce_hover.js
+  - visualization/sentiment_block_plot.js
+  - scripts/scroll.js
+  - https://cdn.jsdelivr.net/npm/vega@5.20.2/build/vega.min.js
+  - https://cdn.jsdelivr.net/npm/vega-lite@5.6.0/build/vega-lite.min.js
+  - https://cdn.jsdelivr.net/npm/vega-embed@6.19.0/build/vega-embed.min.js
+---
+
+
+<div id="bounce-bubble" style="position: relative;"></div>
+
+<div id="hover-info-bubble" style="
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  width: 240px;
+  background: white;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  font-family: sans-serif;
+  font-size: 14px;
+  display: none;
+  z-index: 999;
+"></div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script type="module">
+  import { drawPackedBubbleAnimated } from "./visualization/bubble_bounce_hover.js";
+  drawPackedBubbleAnimated("#bounce-bubble", "visualization/data/bubble_with_descriptions.json");
+</script>
+
+---
+
+<div id="sentiment-block" style="position: relative;"></div>
+
+<div id="hover-info-timeline" style="
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 14px;
+  max-width: 280px;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+  border-radius: 6px;
+  z-index: 10;
+  display: none;
+"></div>
+
+<script type="module">
+  import { drawSentimentBlockPlot } from "./visualization/sentiment_block_plot.js";
+  drawSentimentBlockPlot("#sentiment-block", "visualization/data/sentiment_blocks.json");
+</script>
